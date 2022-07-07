@@ -1,6 +1,23 @@
 import random
 import turtle as t
 
+
+def move_up():
+    if caterpillar.heading() == 0 or caterpillar.heading() == 180: #check if head is pointing to the right (0) or left (180)
+        caterpillar.setheading(90)
+
+def move_down():
+    if caterpillar.heading() == 0 or caterpillar.heading() == 180:
+        caterpillar.setheading(270)
+
+def move_right():
+    if caterpillar.heading()==90 or caterpillar.heading() == 270:
+        caterpillar.setheading(0)
+
+def move_left():
+    if caterpillar.heading()==90 or caterpillar.heading()==270:
+        caterpillar.setheading(180)
+
 def outside_window(): #this function can be done by students. leave the pass variables
     #create vars
     window_l = -t.window_width()/2
@@ -44,7 +61,7 @@ def start_game(): #initiate the game
     text_turtle.clear()
 
     caterpillar_speed = 2
-    caterpillar_length = 3
+    caterpillar_length = 1
     caterpillar.shapesize(1,caterpillar_length,1) #turtle stretches into shape size
     caterpillar.showturtle()
     display_score(score) #DISPLAY the score
@@ -54,11 +71,11 @@ def start_game(): #initiate the game
         # the catepillar eats the leaf once its 20 pixels away
         if caterpillar.distance(leaf) < 20:  # returns distance from turtle to arg (leaf)
             place_leaf()  # replenish the leaf because its been eaten
-        caterpillar_length += 1
-        caterpillar.shapesize(1, caterpillar_length, 1)  # stretch_width, stretch_length -> makes the caterpillar longer after eating leaf
-        caterpillar_speed += 1 #caterpillar goes faster
-        score += 10 #add to score
-        display_score(score) # display the new score
+            caterpillar_length += 1
+            caterpillar.shapesize(1, caterpillar_length, 1)  # stretch_width, stretch_length -> makes the caterpillar longer after eating leaf
+            caterpillar_speed += 1 #caterpillar goes faster
+            score += 10 #add to score
+            display_score(score) # display the new score
         if outside_window():
             game_over()
             break
@@ -71,7 +88,7 @@ t.bgcolor('yellow')
 caterpillar = t.Turtle() #create a new caterpillar as a turtle object
 caterpillar.shape('square')
 caterpillar.color('red')
-caterpillar.speed(0)
+caterpillar.speed(1)
 caterpillar.penup()
 caterpillar.hideturtle()
 
@@ -97,5 +114,9 @@ score_turtle.hideturtle()
 score_turtle.speed(0)
 
 t.onkey(start_game, 'space') #call start_game function when key space bar is pressed
+t.onkey(move_up,'Up')
+t.onkey(move_down,'Down')
+t.onkey(move_right,'Right')
+t.onkey(move_left,'Left')
 t.listen() #progrma listens for event
 t.mainloop() #loop the program infinitely
